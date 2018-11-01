@@ -203,7 +203,7 @@ input[type=reset]:hover, input[type=submit]:hover {
 
 #header-wrapper {
 	background: url(http://3.bp.blogspot.com/_Zuzii37VUO4/S3e88SRcB4I/AAAAAAAAEd8/gOP3fexQP2w/s1600/header.png) no-repeat center bottom;
-	padding: 30px 10px 110px;
+	padding: 0px 10px 110px;
 	position: relative;
 }
 #header-wrapper h1 {
