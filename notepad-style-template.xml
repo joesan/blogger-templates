@@ -2,6 +2,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
   <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128603149-1"></script>
+     <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-128603149-1');
+     </script>
+
     <b:include data='blog' name='all-head-content'/>
     <title><data:blog.pageTitle/></title>
     <b:skin><![CDATA[/*
@@ -1550,20 +1560,6 @@ anio = &quot;<strong class='fecha_anio'>&quot;+da[2]+&quot;</strong>&quot;;
 
       <div id='sidebar-wrapper'>
         <b:section class='sidebar' id='sidebar' preferred='yes'>
-          <b:widget id='LinkList1' locked='false' title='Links' type='LinkList' version='1'>
-            <b:includable id='main'>
-
-<b:if cond='data:title'><h2><data:title/></h2></b:if>
- <div class='widget-content'>
-   <ul>
-     <b:loop values='data:links' var='link'>
-       <li><a expr:href='data:link.target'><data:link.name/></a></li>
-     </b:loop>
-   </ul>
-   <b:include name='quickedit'/>
- </div>
-</b:includable>
-          </b:widget>
           <b:widget id='Label1' locked='false' title='Tags' type='Label' version='1'>
             <b:widget-settings>
               <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
@@ -1703,6 +1699,77 @@ anio = &quot;<strong class='fecha_anio'>&quot;+da[2]+&quot;</strong>&quot;;
   </b:if>
  </b:if>
 </b:includable>
+          </b:widget>
+          <b:widget id='Stats1' locked='false' title='Total Pageviews' type='Stats'>
+            <b:widget-settings>
+              <b:widget-setting name='showGraphicalCounter'>true</b:widget-setting>
+              <b:widget-setting name='showAnimatedCounter'>true</b:widget-setting>
+              <b:widget-setting name='showSparkline'>true</b:widget-setting>
+              <b:widget-setting name='sparklineStyle'>BLACK_TRANSPARENT</b:widget-setting>
+              <b:widget-setting name='timeRange'>ALL_TIME</b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main'>
+  <b:if cond='data:title != &quot;&quot;'><h2><data:title/></h2></b:if>
+  <div class='widget-content'>
+    <!-- Content is going to be visible when data will be fetched from server. -->
+    <div expr:id='data:widget.instanceId + &quot;_content&quot;' style='display: none;'>
+      <!-- Counter and image will be injected later via AJAX call. -->
+      <b:if cond='data:showSparkline'>
+        <img alt='Sparkline' expr:id='data:widget.instanceId + &quot;_sparkline&quot;' height='30' width='75'/>
+      </b:if>
+      <span expr:class='&quot;counter-wrapper &quot; + (data:showGraphicalCounter ? &quot;graph-counter-wrapper&quot; : &quot;text-counter-wrapper&quot;)' expr:id='data:widget.instanceId + &quot;_totalCount&quot;'>
+      </span>
+      <b:include name='quickedit'/>
+    </div>
+  </div>
+</b:includable>
+          </b:widget>
+          <b:widget id='Profile1' locked='false' title='Contributors' type='Profile'>
+            <b:widget-settings>
+              <b:widget-setting name='showaboutme'>true</b:widget-setting>
+              <b:widget-setting name='showlocation'>false</b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main'>
+    <b:if cond='data:title != &quot;&quot;'>
+      <h2><data:title/></h2>
+    </b:if>
+    <div class='widget-content'>
+    <b:if cond='data:team'> <!-- team blog profile -->
+      <ul>
+        <b:loop values='data:authors' var='i'>
+          <li><a class='profile-name-link g-profile' expr:href='data:i.userUrl' expr:style='&quot;background-image: url(&quot; + data:i.profileLogo + &quot;);&quot;'><data:i.display-name/></a></li>
+        </b:loop>
+      </ul>
+
+    <b:else/> <!-- normal blog profile -->
+
+      <b:if cond='data:photo.url != &quot;&quot;'>
+        <a expr:href='data:userUrl'><img class='profile-img' expr:alt='data:messages.myPhoto' expr:height='data:photo.height' expr:src='data:photo.url' expr:width='data:photo.width'/></a>
+      </b:if>
+
+      <dl class='profile-datablock'>
+        <dt class='profile-data'>
+          <a class='profile-name-link g-profile' expr:href='data:userUrl' expr:style='&quot;background-image: url(&quot; + data:profileLogo + &quot;);&quot;' rel='author'>
+            <data:displayname/>
+          </a>
+          <b:if cond='data:hasgoogleprofile'>
+            <br/>
+            <div class='g-follow' data-annotation='bubble' data-height='20' expr:data-href='data:userUrl'/>
+          </b:if>
+        </dt>
+
+        <b:if cond='data:showlocation'>
+          <dd class='profile-data'><data:location/></dd>
+        </b:if>
+
+        <b:if cond='data:aboutme != &quot;&quot;'><dd class='profile-textblock'><data:aboutme/></dd></b:if>
+      </dl>
+      <a class='profile-link' expr:href='data:userUrl' rel='author'><data:viewProfileMsg/></a>
+    </b:if>
+
+     <b:include name='quickedit'/>
+    </div>
+  </b:includable>
           </b:widget>
         </b:section>
       </div>
